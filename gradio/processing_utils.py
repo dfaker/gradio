@@ -115,15 +115,15 @@ def download_to_file(url, dir=None):
     return file_obj
 
 
-def save_array_to_file(image_array, dir=None):
+def save_array_to_file(image_array, dir=None, suffix=".png"):
     pil_image = Image.fromarray(_convert(image_array, np.uint8, force_copy=False))
-    file_obj = tempfile.NamedTemporaryFile(delete=False, suffix=".png", dir=dir)
+    file_obj = tempfile.NamedTemporaryFile(delete=False, suffix=suffix, dir=dir)
     pil_image.save(file_obj)
     return file_obj
 
 
-def save_pil_to_file(pil_image, dir=None):
-    file_obj = tempfile.NamedTemporaryFile(delete=False, suffix=".png", dir=dir)
+def save_pil_to_file(pil_image, dir=None, suffix=".png"):
+    file_obj = tempfile.NamedTemporaryFile(delete=False, suffix=suffix, dir=dir)
     pil_image.save(file_obj)
     return file_obj
 
