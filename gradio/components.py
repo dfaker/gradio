@@ -3237,6 +3237,7 @@ class Gallery(IOComponent):
         show_label: bool = True,
         visible: bool = True,
         elem_id: Optional[str] = None,
+        temporary_filetype_suffix: Optional[str] = '.png',
         **kwargs,
     ):
         """
@@ -3256,6 +3257,7 @@ class Gallery(IOComponent):
             value=value,
             **kwargs,
         )
+        self.temporary_filetype_suffix = temporary_filetype_suffix
 
     @staticmethod
     def update(
@@ -3299,9 +3301,9 @@ class Gallery(IOComponent):
             if isinstance(img, tuple) or isinstance(img, list):
                 img, caption = img
             if isinstance(img, np.ndarray):
-                file = processing_utils.save_array_to_file(img, dir=self.temp_dir)
+                file = processing_utils.save_array_to_file(img, dir=self.temp_dir, suffix=self.temporary_filetype_suffix)
             elif isinstance(img, PIL.Image.Image):
-                file = processing_utils.save_pil_to_file(img, dir=self.temp_dir)
+                file = processing_utils.save_pil_to_file(img, dir=self.temp_dir, suffix=self.temporary_filetype_suffix)
             elif isinstance(img, str):
                 if utils.validate_url(img):
                     file = processing_utils.download_to_file(img, dir=self.temp_dir)
