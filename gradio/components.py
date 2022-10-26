@@ -3237,7 +3237,7 @@ class Gallery(IOComponent):
         show_label: bool = True,
         visible: bool = True,
         elem_id: Optional[str] = None,
-        temporary_filetype_suffix: Optional[str] = '.png',
+        temporary_filetype_suffix: Optional[str] = None,
         **kwargs,
     ):
         """
@@ -3247,6 +3247,7 @@ class Gallery(IOComponent):
             show_label: if True, will display label.
             visible: If False, component will be hidden.
             elem_id: An optional string that is assigned as the id of this component in the HTML DOM. Can be used for targeting CSS styles.
+            temporary_filetype_suffix: An optional string that overrides the file type used for saving and serving PIL and ndarray converted temporary files.
         """
         self.temp_dir = tempfile.mkdtemp()
         super().__init__(
@@ -3257,7 +3258,7 @@ class Gallery(IOComponent):
             value=value,
             **kwargs,
         )
-        self.temporary_filetype_suffix = temporary_filetype_suffix
+        self.temporary_filetype_suffix = temporary_filetype_suffix or '.png'
 
     @staticmethod
     def update(
